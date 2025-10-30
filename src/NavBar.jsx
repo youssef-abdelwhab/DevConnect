@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 import Container from '@mui/material/Container';
+import { Link } from "react-router-dom";
+
 
 export default function NavBar() {
   return (
@@ -13,11 +15,22 @@ export default function NavBar() {
       <AppBar position="static">
             <Container>
                 <Toolbar>
+
+
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  <Link to="/">
                         DevConnect
+                  </Link>
                     </Typography>
-                    <Button color="inherit"><PersonAddIcon/></Button>
-                    <Button color="inherit"><LoginIcon/></Button>
+
+                  <Link to="CreatAccount">
+                        <Button color="inherit"><PersonAddIcon/></Button>
+                  </Link>
+
+                  <Link to="/login">
+                      <Button color="inherit"><LoginIcon/></Button>
+                  </Link>
+
                 </Toolbar>
             </Container>
       </AppBar>

@@ -1,14 +1,24 @@
 
 import AllPost from "./AllPost"
 import NavBar from "./NavBar"
+import Log_In from "./Log_In"
+import CreatAccount from "./CreatAccount";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
   return (
     <>
-    <NavBar/>
-    
-    <AllPost></AllPost>
+    <BrowserRouter>
+      <NavBar/>
+      <Routes>
+        <Route path="/CreatAccount" element={<CreatAccount/>}/>
+        <Route path="/" element={<AllPost />} />
+        <Route path="/login" element={<Log_In />} />
+
+      </Routes>
+    </BrowserRouter>
+
     </>
   )
 }
