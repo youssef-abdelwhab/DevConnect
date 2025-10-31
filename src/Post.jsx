@@ -3,16 +3,21 @@ import { Box, Avatar, Typography, Stack, Card } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { useState } from "react";
 import Dialog from '@mui/material/Dialog';
+import CommentModel from "./CommentModel";
+
+
 export default function Post({post}) {
-
-
   const img = "../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
 
   const [ImgSrc , setImgSrc] = useState(post.image || img)
 
   const [open , setOpen] = useState(false)
+  const [openComment , setOpenComment] = useState(false)
+
+
 
   return (
+    <>
     <Card sx={{ backgroundColor: "#e0e0e0", alignItems: "center", p: 2,  mt: 4,  borderRadius: 3, }}  >
       <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
         <Avatar  alt={post.author.username}  src={post.author.profile_image} />
@@ -36,8 +41,6 @@ export default function Post({post}) {
             }}
           />
       </Dialog>
-
-
       <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" } }}>
         {post.created_at}
       </Typography>
@@ -50,8 +53,17 @@ export default function Post({post}) {
       </Stack>
       <Stack alignItems={"center"} direction="row" spacing={0.5} mt={1} >
         <AddCommentIcon  sx={{fontSize:"sm" }}/>
-        <Typography variant="subtitle1" color="text.secondary">{post.comments_count} Comment</Typography>
+        <Typography variant="subtitle1" color="text.secondary" onClick={()=>{setOpenComment(true)}} >{post.comments_count} Comment</Typography>
       </Stack>
+
     </Card>
+      <Dialog open={ openComment} onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
+
+        <CommentModel></CommentModel>          
+
+
+
+      </Dialog>
+      </>
   );
 }
