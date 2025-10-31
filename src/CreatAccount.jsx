@@ -48,20 +48,7 @@ const [showPassword, setShowPassword] = React.useState(false);
                         <Typography variant="h4" p={1.5} mb={1.5}>
                 Create a new account
             </Typography>
-        {selectedImage && (
-            <img
-            src={selectedImage}
-            alt="Preview"
-            style={{
-                width: "120px",
-                height: "120px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                margin: "10px auto",
-                border: "2px solid #1976d2",
-            }}
-            />
-        )}
+        {selectedImage && (  <img src={selectedImage} alt="Preview" style={{   width: "120px",  height: "120px",  borderRadius: "50%", objectFit: "cover",  margin: "10px auto", border: "2px solid #1976d2",}}/> )}
 
 
             <Stack m={1}>
