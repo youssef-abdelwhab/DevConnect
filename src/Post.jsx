@@ -14,7 +14,10 @@ export default function Post({post}) {
   const [open , setOpen] = useState(false)
   const [openComment , setOpenComment] = useState(false)
 
-
+  const Closs = function handelClossModel(X) {
+    setOpenComment(X)
+    
+  }
 
   return (
     <>
@@ -51,18 +54,16 @@ export default function Post({post}) {
           {post.body}
         </Typography>
       </Stack>
-      <Stack alignItems={"center"} direction="row" spacing={0.5} mt={1} >
+      <Stack alignItems={"center"} direction="row" spacing={0.5} mt={1} onClick={()=>{setOpenComment(true)}} sx={{cursor:"pointer"}}>
         <AddCommentIcon  sx={{fontSize:"sm" }}/>
-        <Typography variant="subtitle1" color="text.secondary" onClick={()=>{setOpenComment(true)}} >{post.comments_count} Comment</Typography>
+        <Typography variant="subtitle1" color="text.secondary"  >{post.comments_count} Comment</Typography>
       </Stack>
 
     </Card>
-      <Dialog open={ openComment} onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
-
-        <CommentModel></CommentModel>          
-
-
-
+      <Dialog  sx={{backgroundColor: "#e0e0e0" , p:0}} open={ openComment}  onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
+        <Box sx={{width:"100%" , backgroundColor: "#e0e0e0",}}>
+           <CommentModel post={post} Class={Closs} ></CommentModel>  
+        </Box>
       </Dialog>
       </>
   );
