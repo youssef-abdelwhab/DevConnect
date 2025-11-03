@@ -1,9 +1,9 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Post from './Post';
+import Post from "./Post";
 import { useSelector , useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import {fetchPosts} from "./redux/slices/postsSlice"
+import {fetchPosts} from "../redux/slices/postsSlice"
 import Typography from "@mui/material/Typography";
 import CircularProgress from '@mui/material/CircularProgress';
 

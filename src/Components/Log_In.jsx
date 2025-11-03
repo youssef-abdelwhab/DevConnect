@@ -13,6 +13,10 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Container from '@mui/material/Container';
 import  {Link}  from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch  } from 'react-redux';
+import {loginUser} from "../../src/redux/slices/authSlice"
+import Checkbox from '@mui/material/Checkbox';
 
 
 export default function Log_In(){
@@ -28,8 +32,23 @@ const [showPassword, setShowPassword] = React.useState(false);
     event.preventDefault();
   };
 
+  const [formdata ,setformdata] = useState({
+    username: "",
+    password:""
+  })
+    
+    const [ check , setcheck] = useState(false)
+    
+    const dispatch = useDispatch()
 
+    const handelbuttem = ()=>{
+        const data = new FormData();
+        data.append("name" , formdata.name)
+        data.append("password" , formdata.password)
+        dispatch(loginUser({formData : data , rememberMe : check}))
+        
 
+    }
 
 
 
@@ -46,7 +65,11 @@ const [showPassword, setShowPassword] = React.useState(false);
  
 
             <Card sx={{ display:"flex",flexDirection:"column" , gap:"20px"  , pt:1}}   >
-                <TextField   id="outlined-basic" label="User Name" variant="outlined" />
+                <TextField   id="outlined-basic" label="User Name" variant="outlined" onClick={(event)=>{
+                    setformdata(priv =>({...priv , username : event.target.value}))
+                }
+
+                } />
 
                 <FormControl variant="outlined">
 
@@ -54,6 +77,9 @@ const [showPassword, setShowPassword] = React.useState(false);
                     <OutlinedInput
                         id="outlined-adornment-password"
                         type={showPassword ? 'text' : 'password'}
+                        onChange={(event)=>{
+                            setformdata(prev => ({...prev , name: event.target.value}))
+                        }}
                         endAdornment={
                         <InputAdornment position="end">
                             <IconButton
@@ -70,7 +96,14 @@ const [showPassword, setShowPassword] = React.useState(false);
                             </InputAdornment>
                             } label="Password"/>
                     </FormControl>
-                    <Button variant="contained"  > LOG IN </Button>
+                    <label >
+                        تتذكرني
+                        <Checkbox  onChange={(event)=>{
+                            setcheck(event.target.checked)
+                        }} />
+
+                    </label>
+                    <Button variant="contained" onClick={handelbuttem} > LOG IN </Button>
 
 
               </Card>

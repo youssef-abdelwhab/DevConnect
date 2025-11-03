@@ -9,8 +9,15 @@ import Container from '@mui/material/Container';
 import { Link } from "react-router-dom";
 
 
-export default function NavBar({mode ,setMode}) {
-  return (
+
+
+
+export default function NavBarGuest ({mode , setMode}){
+
+
+
+
+    return(
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
             <Container>
@@ -46,5 +53,5 @@ export default function NavBar({mode ,setMode}) {
             </Container>
       </AppBar>
     </Box>
-  );
+    )
 }

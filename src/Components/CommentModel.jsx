@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch , useSelector } from "react-redux";
-import {fetchComments} from "./redux/slices/CommentSlice";
+import {fetchComments} from "../redux/slices/CommentSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -22,7 +22,7 @@ export default function CommentModel({Class , post}){
 
       },[dispath, post.id])
 
-      const img = "../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
+      const img = ".../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
       const [ImgSrc , setImgSrc] = useState(post.image || img);
 
     return(
