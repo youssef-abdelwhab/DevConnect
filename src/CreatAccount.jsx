@@ -44,7 +44,7 @@ const [showPassword, setShowPassword] = React.useState(false);
 
 
 
-        <Card sx={{background:"#e0e0e0" ,display:"flex", flexDirection:"column" , textAlign:"center" , p:2 , borderRadius:"10px"}}  >
+        <Card sx={{display:"flex", flexDirection:"column" , textAlign:"center" , p:2 , borderRadius:"10px"}}  >
                         <Typography variant="h4" p={1.5} mb={1.5}>
                 Create a new account
             </Typography>
@@ -54,12 +54,12 @@ const [showPassword, setShowPassword] = React.useState(false);
             <Stack m={1}>
  
 
-            <Card sx={{ display:"flex",flexDirection:"column" ,background:"#e0e0e0" , gap:"20px"  , pt:1}}   >
-                <TextField sx={{ background:"#f5f5f5"}}  id="outlined-basic" label="Name" variant="outlined" />
-                <TextField sx={{ background:"#f5f5f5"}}  id="outlined-basic" label="User Name" variant="outlined" />
+            <Card sx={{ display:"flex",flexDirection:"column" , gap:"20px"  , pt:1}}   >
+                <TextField   id="outlined-basic" label="Name" variant="outlined" />
+                <TextField  id="outlined-basic" label="User Name" variant="outlined" />
 
 
-                <FormControl sx={{ background:"#f5f5f5"}} variant="outlined">
+                <FormControl variant="outlined">
 
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput

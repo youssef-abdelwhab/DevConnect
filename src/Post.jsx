@@ -1,4 +1,3 @@
-
 import { Box, Avatar, Typography, Stack, Card } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { useState } from "react";
@@ -16,12 +15,11 @@ export default function Post({post}) {
 
   const Closs = function handelClossModel(X) {
     setOpenComment(X)
-    
   }
 
   return (
     <>
-    <Card sx={{ backgroundColor: "#e0e0e0", alignItems: "center", p: 2,  mt: 4,  borderRadius: 3, }}  >
+    <Card sx={{  alignItems: "center", p: 2,  mt: 4,  borderRadius: 3, }}  >
       <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
         <Avatar  alt={post.author.username}  src={post.author.profile_image} />
         <Typography variant="subtitle2" fontWeight={600} sx={{ fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" } }}>
@@ -32,7 +30,7 @@ export default function Post({post}) {
       <Box component="img"   src={ImgSrc} onError={() => setImgSrc(img)} alt="Post Img" 
       sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 ,height: ImgSrc === img ? "450px" : "100%" , cursor:"pointer"}} onClick={()=>{setOpen(true)}} />
       
-      <Dialog open={open}  onClose={() => setOpen(false)} maxWidth="lg" sx={{ background:"rgba(242, 234, 234, 0.66)"}}>
+      <Dialog open={open}  onClose={() => setOpen(false)} maxWidth="lg">
           <Box
             component="img"
             src={ImgSrc}
@@ -60,8 +58,8 @@ export default function Post({post}) {
       </Stack>
 
     </Card>
-      <Dialog  sx={{backgroundColor: "#e0e0e0" , p:0}} open={ openComment}  onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
-        <Box sx={{width:"100%" , backgroundColor: "#e0e0e0",}}>
+      <Dialog  sx={{ p:0}} open={ openComment}  onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
+        <Box sx={{width:"100%" }}>
            <CommentModel post={post} Class={Closs} ></CommentModel>  
         </Box>
       </Dialog>

@@ -16,14 +16,17 @@ export default function CommentModel({Class , post}){
       const {Comments , loading ,error} = useSelector((state) => state.Comments);
 
       useEffect (()=>{
-        dispath(fetchComments(post.id))
+        if(post.id){
+                  dispath(fetchComments(post.id))
+        }
+
       },[dispath, post.id])
 
       const img = "../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
       const [ImgSrc , setImgSrc] = useState(post.image || img);
 
     return(
-    <Card sx={{ backgroundColor: "#e0e0e0", alignItems: "center",maxWidth:"900px",  borderRadius: 3, mx:"auto" ,p:2 , width:"94%" }}  >
+    <Card sx={{ alignItems: "center",maxWidth:"900px",  borderRadius: 3, mx:"auto" ,p:2 , width:"94%" }}  >
       <Stack sx={{display:"flex" ,justifyContent:"space-between" ,flexDirection:"row" , alignContent:"center"}}> 
         <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
           <Avatar alt={post.author.username}  src={post.author.profile_image}/>
@@ -55,7 +58,7 @@ export default function CommentModel({Class , post}){
         <Typography variant="subtitle1" color="text.secondary"> {post.comments_count} Comment</Typography>
       </Stack>
 
-      <Card sx={{ maxheight:"500px", minHeight:"fit-content",overflow:"scroll"}}>
+      <Card sx={{ maxHeight:"500px", minHeight:"fit-content",overflow:"scroll"}}>
         {loading &&(
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                 <CircularProgress />
@@ -77,8 +80,8 @@ export default function CommentModel({Class , post}){
           ))
         )}
       </Card>
-       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 ,background:"#e0e0e0" , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
-        <TextField fullWidth label="fullWidth" id="fullWidth" sx={{background:"#e3f2fd"}} />
+       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
+        <TextField fullWidth label="fullWidth" id="fullWidth"/>
         <SendIcon sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}></SendIcon>
         
       </Stack>
