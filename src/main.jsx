@@ -15,6 +15,7 @@ export function Main() {
 
 
 
+
   const [mode, setMode] = useState(getInitialMode);
 
   useEffect(()=>{
@@ -30,6 +31,7 @@ export function Main() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={store}>
+
         <App mode={mode} setMode={setMode} />
       </Provider>
     </ThemeProvider>

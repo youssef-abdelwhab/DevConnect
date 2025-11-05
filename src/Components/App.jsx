@@ -4,13 +4,14 @@ import NavBar from "./navBar/NavBar"
 import Log_In from "./Log_In"
 import CreatAccount from "./CreatAccount";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Snackbars from "./SnackBar"
 function App( {mode , setMode}) {
 
   return (
     <>
     <BrowserRouter>
       <NavBar mode={mode} setMode={setMode}/>
+      <Snackbars></Snackbars>
       <Routes>
         <Route path="/CreatAccount" element={<CreatAccount/>}/>
         <Route path="/" element={<AllPost />} />

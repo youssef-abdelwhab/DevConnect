@@ -3,7 +3,6 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,24 +11,24 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Container from '@mui/material/Container';
-import { useDispatch  , useSelector } from 'react-redux';
-import {  useEffect, useState } from 'react';
-import {registerUser} from "../redux/slices/authSlice";
 import Checkbox from '@mui/material/Checkbox';
-
-import { useNavigate } from "react-router-dom";
+import SaveIcon from '@mui/icons-material/Save';
 import { Box } from '@mui/material';
 
+import { useDispatch  , useSelector } from 'react-redux';
+import {registerUser} from "../redux/slices/authSlice";
+
+import {  useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 export default function CreatAccount(){
+
   const navigate = useNavigate();
-  const {token } = useSelector(state => state.auth )
-  const dispath = useDispatch()
+  const {token , loading} = useSelector(state => state.auth )
 
+ // ----------------{show passwrd}----------------
   const [showPassword, setShowPassword] = useState(false);
-
-  const [selectedImage, setSelectedImage] = useState("../src/assets/default-avatar-icon-of-social-media-user-vector.jpg");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -41,6 +40,8 @@ export default function CreatAccount(){
     event.preventDefault();
   };
 
+  // --------------{imge profail UI}------------
+  const [selectedImage, setSelectedImage] = useState("../src/assets/default-avatar-icon-of-social-media-user-vector.jpg");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -49,6 +50,9 @@ export default function CreatAccount(){
       setformData(prev =>({... prev ,img : file}))
     }
   }     
+  // ---------------{Form Data Sudmnt }---------
+    const dispath = useDispatch()
+    const [check ,setcheck] = useState(false)
   
    const [formData , setformData] = useState({
     name:"",
@@ -58,10 +62,7 @@ export default function CreatAccount(){
     img:null,
   })
 
-
-  const [check ,setcheck] = useState(false)
   const handleSubmit = ()=>{
-
       const data = new FormData();
         data.append("name", formData.name);
         data.append("username", formData.username);
@@ -69,10 +70,13 @@ export default function CreatAccount(){
         data.append("email", formData.email);
         data.append("image", formData.img);
       dispath(registerUser( {formdata : data ,rememberMe : check}))
-  }
+  }    
   useEffect(()=>{
-     if(token) navigate("/");
-  }, [token])
+        setTimeout(()=>{
+            if(token) navigate("/");
+        },500);
+  }, [token ,navigate])
+
 
   return(
       <Container  maxWidth="sm" sx={{mt:5 ,textAlign:"center"}} >
@@ -143,7 +147,15 @@ export default function CreatAccount(){
 
                   </label>
                   </Box>                  
-                  <Button onClick={handleSubmit} variant="contained" > Create an Account</Button>
+                    <Button
+                    variant="contained"
+                    disabled={loading}
+                    onClick={handleSubmit}
+                    endIcon={loading && <SaveIcon />}
+                    >
+                    {loading ? "Logging in..." : "LOG IN"}
+                    </Button>
+
             </Card>
           </Stack>
           </Card>

@@ -1,41 +1,95 @@
 import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const API_URL = "https://tarmeezacademy.com/api/v1";
+import { showSnackBar } from "./UiSlice";
 
-
-export const registerUser = createAsyncThunk("auth/register",async({formdata , rememberMe})=>{
+//--------------------------------{Api register}-------------------------------
+export const registerUser = createAsyncThunk("auth/register",async({formdata , rememberMe} , {dispatch , rejectWithValue})=>{
+  try{
     const response = await axios.post(`${API_URL}/register` , formdata)
      
-      if(rememberMe){
+    if(rememberMe){
         localStorage.setItem("token" , response.data.token)
         localStorage.setItem("user", JSON.stringify(response.data.user))
     }else{
         sessionStorage.setItem("token" , response.data.token)
         sessionStorage.setItem("user", JSON.stringify(response.data.user))
     }
+    dispatch(
+      showSnackBar({
+        snackbarMessage:"تم انشاء الحساب بنجاح",
+        snackbarSeverity: "success",
+      })
+    )
     return response.data
 
+
+  }catch (error){
+    dispatch(
+      showSnackBar({
+        snackbarMessage:error.message,
+        snackbarSeverity: "error",
+      })
+    )
+
+    return rejectWithValue(error.response?.data)
+
+  }
+
 })
-export const loginUser = createAsyncThunk("auth/login",{ headers: { "Content-Type": "multipart/form-data" }},async({formdata,rememberMe})=>{
-    const response = await axios.post(`${API_URL}/login` , formdata)
-    if(rememberMe){
-        localStorage.setItem("token" , response.data.token)
-        localStorage.setItem("user" , JSON.stringify(response.data.user))
-    }else{
-        sessionStorage.setItem("token" , response.data.token)
-        sessionStorage.setItem("user" , JSON.stringify(response.data.user) )
-    }
-    return response.data.data
+//--------------------------------{Api Log in }-------------------------------
+export const loginUser = createAsyncThunk("auth/login",async({formdata,rememberMe} , {dispatch , rejectWithValue})=>{
+  try{
+      const response = await axios.post(`${API_URL}/login` ,formdata,{ headers: { "Content-Type": "multipart/form-data" }} )
+        if(rememberMe){
+            localStorage.setItem("token" , response.data.token)
+            localStorage.setItem("user" , JSON.stringify(response.data.user))
+        }else{
+            sessionStorage.setItem("token" , response.data.token)
+            sessionStorage.setItem("user" , JSON.stringify(response.data.user) )
+        }
+        dispatch(
+          showSnackBar({
+                snackbarMessage:"تم تسجيل الدخول بنجاح",
+                snackbarSeverity: "success",
+          })
+        )
+        return response.data
+
+  }catch(error){
+       dispatch(
+        showSnackBar({
+          snackbarMessage:error.message,
+          snackbarSeverity:"error"
+        })
+       )
+       return rejectWithValue(error.response?.data)
+  }
 } , )
 
-
-export const logOutUser = createAsyncThunk("auth/logout", async (_, { getState }) => {
-  const token = getState().auth.token;
-  await axios.post(`${API_URL}/logout`, {}, {
-    headers: { Authorization: `Bearer ${token}`}
-  });
+//--------------------------------{Api Log out}-------------------------------
+export const logOutUser = createAsyncThunk("auth/logout", async (_, {dispatch , getState }) => {
+  try{
+      const token = getState().auth.token;
+      await axios.post(`${API_URL}/logout`, {}, {
+        headers: { Authorization: `Bearer ${token}`}
+      });
+      dispatch(
+        showSnackBar({
+          snackbarMessage:"تم تسجيل الدخول بنجاح ",
+          snackbarSeverity:"success"
+        })
+      )
+  }catch(error){
+           dispatch(
+        showSnackBar({
+          snackbarMessage:error.message,
+          snackbarSeverity:"error"
+        })
+       )
+  }
 });
-
+//--------------------------------{Api updatePorfile}-------------------------------
 export const updatePorfile = createAsyncThunk("auth/updatePorfile",async(formData)=>{
     const response = await axios.post(`${API_URL}/updatePorfile` , formData)
     return response.data
@@ -59,7 +113,7 @@ const authSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
       builder
-      // programming logic is for registerUser.
+//----------------{ programming logic is for registerUser.}------------
       .addCase(registerUser.pending , (state)=>{
         state.loading = true;
       })
@@ -68,11 +122,11 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
       })
-      .addCase(registerUser.rejected , (state , action)=>{
+      .addCase(registerUser.rejected , (state )=>{
         state.loading = false ;
-        state.error = action.error.message;
+
       })
-        // programming logic is for loginUser.
+//------------- {programming logic is for log in User.}---------------
         .addCase(loginUser.pending , (state)=>{
         state.loading = true;
       })
@@ -86,7 +140,7 @@ const authSlice = createSlice({
         state.loading = false ;
         state.error = action.error.message;
       })
-    // programming logic is for updatePorfile.
+ //----------- {programming logic is for updatePorfile.}-------------
       .addCase(updatePorfile.pending , (state)=>{
         state.loading = true;
       })
@@ -98,13 +152,13 @@ const authSlice = createSlice({
         state.loading = false ;
         state.error = action.error.message;
       })
-        // programming logic is for logOutUser.
+// --------------{programming logic is for log Out User.}-------------------
       .addCase(logOutUser.pending , (state)=>{
         state.loading = true;
       })
       .addCase(logOutUser.fulfilled , (state)=>{
             state.loading=false;
-            state.user = {};
+            state.user = null;
             state.token = null;
             localStorage.removeItem("token");
             localStorage.removeItem("user");

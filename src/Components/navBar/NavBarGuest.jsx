@@ -9,23 +9,17 @@ import Container from '@mui/material/Container';
 import { Link } from "react-router-dom";
 
 
-
-
-
 export default function NavBarGuest ({mode , setMode}){
-
-
-
 
     return(
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
             <Container>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  <Link to="/">
-                        DevConnect
-                  </Link>
+                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:25, textDecoration: "none", color: "text.primary"  ,flexGrow:1}}>
+
+                        Dev Connect
+
                     </Typography>
 
                   <Button 
@@ -41,13 +35,12 @@ export default function NavBarGuest ({mode , setMode}){
                         {mode ? "☀️" : "🌙"}
                   </Button>
 
-                  <Link to="CreatAccount">
-                        <Button color="inherit"><PersonAddIcon/></Button>
-                  </Link>
+                        <Button component={Link} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
 
-                  <Link to="/login">
-                      <Button color="inherit"><LoginIcon/></Button>
-                  </Link>
+
+
+                      <Button component={Link} to="/login" color="text.primary"><LoginIcon/></Button>
+
 
                 </Toolbar>
             </Container>

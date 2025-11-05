@@ -1,9 +1,3 @@
-import Card from '@mui/material/Card';
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,45 +6,63 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Container from '@mui/material/Container';
-import  {Link}  from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch  } from 'react-redux';
-import {loginUser} from "../../src/redux/slices/authSlice"
+import Card from '@mui/material/Card';
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
+import SaveIcon from '@mui/icons-material/Save';
+// hocks react
+import { useState , useEffect } from 'react';
+// rudxe 
+import { useDispatch , useSelector} from 'react-redux';
+import {loginUser} from "../../src/redux/slices/authSlice"
+
+// llink
+import { useNavigate } from "react-router-dom";
+import  {Link}  from 'react-router-dom';
+
 
 
 export default function Log_In(){
-const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const [formdata ,setformdata] = useState({
-    username: "",
-    password:""
-  })
-    
-    const [ check , setcheck] = useState(false)
-    
+    const navigate = useNavigate()
+    const {loading  ,token} = useSelector( state => state.auth)
     const dispatch = useDispatch()
+    const [ check , setcheck] = useState(false)
 
-    const handelbuttem = ()=>{
+
+// -----------------{buttm Sudmit fromdata}----------
+    const [formdata ,setformdata] = useState({
+        username: "",
+        password:""
+    })
+    const handleSubmit = ()=>{
         const data = new FormData();
-        data.append("name" , formdata.name)
+        data.append("username" , formdata.username)
         data.append("password" , formdata.password)
-        dispatch(loginUser({formData : data , rememberMe : check}))
-        
-
+        dispatch(loginUser({formdata : data , rememberMe : check}))
     }
 
+ // ----------------{show passwrd}----------------
+    const [showPassword, setShowPassword] = useState(false);
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+    const handleMouseUpPassword = (event) => {
+        event.preventDefault();
+    };
+
+
+    useEffect(()=>{
+        setTimeout(() => {
+            if(token) navigate("/");
+        }, 500);
+
+    }, [token  , navigate])
 
 
     return(
@@ -65,7 +77,7 @@ const [showPassword, setShowPassword] = React.useState(false);
  
 
             <Card sx={{ display:"flex",flexDirection:"column" , gap:"20px"  , pt:1}}   >
-                <TextField   id="outlined-basic" label="User Name" variant="outlined" onClick={(event)=>{
+                <TextField   id="outlined-basic" label="User Name" variant="outlined" onChange={(event)=>{
                     setformdata(priv =>({...priv , username : event.target.value}))
                 }
 
@@ -78,7 +90,7 @@ const [showPassword, setShowPassword] = React.useState(false);
                         id="outlined-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         onChange={(event)=>{
-                            setformdata(prev => ({...prev , name: event.target.value}))
+                            setformdata(prev => ({...prev , password: event.target.value}))
                         }}
                         endAdornment={
                         <InputAdornment position="end">
@@ -103,7 +115,15 @@ const [showPassword, setShowPassword] = React.useState(false);
                         }} />
 
                     </label>
-                    <Button variant="contained" onClick={handelbuttem} > LOG IN </Button>
+                    <Button
+                            variant="contained"
+                            disabled={loading}
+                            onClick={handleSubmit}
+                            endIcon={loading && <SaveIcon />}
+                            >
+                            {loading ? "Logging in..." : "LOG IN"}
+                    </Button>
+
 
 
               </Card>
