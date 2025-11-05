@@ -6,10 +6,6 @@ import CommentModel from "./CommentModel";
 
 
 export default function Post({post}) {
-  const img = "../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-
-  const [ImgSrc , setImgSrc] = useState(post.image || img)
-
   const [open , setOpen] = useState(false)
   const [openComment , setOpenComment] = useState(false)
 
@@ -18,7 +14,7 @@ export default function Post({post}) {
   }
 
   return (
-    <>
+  <>
     <Card sx={{  alignItems: "center", p: 2,  mt: 4,  borderRadius: 3, }}  >
       <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
         <Avatar  alt={post.author.username}  src={post.author.profile_image} />
@@ -26,22 +22,22 @@ export default function Post({post}) {
           {post.author.username}
         </Typography>
       </Stack>
-
-      <Box component="img"   src={ImgSrc} onError={() => setImgSrc(img)} alt="Post Img" 
-      sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 ,height: ImgSrc === img ? "450px" : "100%" , cursor:"pointer"}} onClick={()=>{setOpen(true)}} />
-      
-      <Dialog open={open}  onClose={() => setOpen(false)} maxWidth="lg">
+      {typeof post.image === "string" && post.image.trim() !== "" &&  (
+        <>
+        <Box component="img" src={post.image} sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 , cursor:"pointer"}} onClick={()=>{setOpen(true)}} />
+        <Dialog open={open}  onClose={() => setOpen(false)} maxWidth="lg">
           <Box
             component="img"
-            src={ImgSrc}
-            alt="Full Image"
+            src={post.image}
             sx={{
               width: "100%",
               height: "auto",
               objectFit: "contain",
             }}
           />
-      </Dialog>
+        </Dialog>
+        </>
+      )}
       <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" } }}>
         {post.created_at}
       </Typography>
@@ -63,6 +59,6 @@ export default function Post({post}) {
            <CommentModel post={post} Class={Closs} ></CommentModel>  
         </Box>
       </Dialog>
-      </>
+    </>
   );
 }

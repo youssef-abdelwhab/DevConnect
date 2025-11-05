@@ -1,6 +1,6 @@
 import { Box, Avatar, Typography, Stack, Card } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { useState , useEffect } from "react";
+import { useEffect  } from "react";
 import CommentItem from "./CommentItem";
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
@@ -11,19 +11,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 export default function CommentModel({Class , post}){
-    
       const dispath = useDispatch();
       const {Comments , loading ,error} = useSelector((state) => state.Comments);
 
       useEffect (()=>{
         if(post.id){
-                  dispath(fetchComments(post.id))
+          dispath(fetchComments(post.id))
         }
-
       },[dispath, post.id])
 
-      const img = ".../src/assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
-      const [ImgSrc , setImgSrc] = useState(post.image || img);
 
     return(
     <Card sx={{ alignItems: "center",maxWidth:"900px",  borderRadius: 3, mx:"auto" ,p:2 , width:"94%" }}  >
@@ -40,8 +36,8 @@ export default function CommentModel({Class , post}){
 
       </Stack>
 
-      <Box component="img"   src={ImgSrc} onError={() => setImgSrc(img)} alt="Post Img" 
-      sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 ,height: ImgSrc === img ? "450px" : "100%" , cursor:"pointer"}}  />
+      <Box component="img"   src={post.image} alt="Post Img" 
+      sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 , cursor:"pointer"}}  />
       
       <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" } }}>
         {post.created_at}
@@ -80,10 +76,9 @@ export default function CommentModel({Class , post}){
           ))
         )}
       </Card>
-       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
-        <TextField fullWidth label="fullWidth" id="fullWidth"/>
-        <SendIcon sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}></SendIcon>
-        
+      <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
+          <TextField fullWidth label="fullWidth" id="fullWidth"/>
+          <SendIcon sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}/>
       </Stack>
 
     </Card>

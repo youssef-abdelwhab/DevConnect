@@ -10,13 +10,12 @@ import { Link } from "react-router-dom";
 
 
 export default function NavBarGuest ({mode , setMode}){
-
-    return(
+  return(
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
             <Container>
                 <Toolbar>
-                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:25, textDecoration: "none", color: "text.primary"  ,flexGrow:1}}>
+                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1.2rem", textDecoration: "none", color: "text.primary"  ,flexGrow:1}}>
 
                         Dev Connect
 
@@ -34,17 +33,13 @@ export default function NavBarGuest ({mode , setMode}){
                       >
                         {mode ? "☀️" : "🌙"}
                   </Button>
-
-                        <Button component={Link} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
-
-
-
-                      <Button component={Link} to="/login" color="text.primary"><LoginIcon/></Button>
+                  <Button component={Link} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
+                  <Button component={Link} to="/login" color="text.primary"><LoginIcon/></Button>
 
 
                 </Toolbar>
             </Container>
       </AppBar>
     </Box>
-    )
+  )
 }

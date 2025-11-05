@@ -61,7 +61,7 @@ export default function NavBarLogge({mode , setMode}){
 
                     </Typography>
                 </Box>
-                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:25, textDecoration: "none", color: "text.primary",flexGrow:1}}>
+                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1rem", textDecoration: "none", color: "text.primary",flexGrow:1}}>
 
                         Dev Connect
 
