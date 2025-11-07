@@ -80,9 +80,9 @@ export default function NavBarLogge({mode , setMode}){
                     >
 
                         {mode === "light" ? (
-                            <BedtimeIcon sx={{ color: "white"  ,fontSize:"1.2rem"}} />
+                            <BedtimeIcon sx={{ color: "white"  ,fontSize:"1rem"}} />
                           ) : (
-                            <BrightnessHighIcon sx={{ color: "white",fontSize:"1.2rem" }} />
+                            <BrightnessHighIcon sx={{ color: "white",fontSize:"1rem" }} />
                           )}
                 </Button>
                         <Button color="text.primary" sx={{"&:hover":{backgroundColor:"#0400002c"}}} onClick={()=>{setOpen(true)}}>< LogoutIcon sx={{fontSize:"1.2rem"}}/></Button>

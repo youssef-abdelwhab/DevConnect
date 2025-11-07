@@ -22,7 +22,7 @@ export default function CommentModel({Class , post}){
 
 
     return(
-    <Card sx={{ alignItems: "center",maxWidth:"900px",  borderRadius: 3, mx:"auto" ,p:2 , width:"94%" }}  >
+    <Card sx={{ alignItems: "center",maxWidth:"900px",   mx:"auto" ,p:2 , width:"100%" , m:0 }}  >
       <Stack sx={{display:"flex" ,justifyContent:"space-between" ,flexDirection:"row" , alignContent:"center"}}> 
         <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
           <Avatar alt={post.author.username}  src={post.author.profile_image}/>

@@ -54,7 +54,7 @@ export default function Post({post}) {
       </Stack>
 
     </Card>
-      <Dialog  sx={{ p:0}} open={ openComment}  onClose={() => setOpenComment(false)} maxWidth="md" scroll="body" fullWidth >
+      <Dialog  sx={{ p:0}} open={ openComment}  onClose={() => setOpenComment(false)} maxWidth="md"  p={0} scroll="body" fullWidth >
         <Box sx={{width:"100%" }}>
            <CommentModel post={post} Class={Closs} ></CommentModel>  
         </Box>
