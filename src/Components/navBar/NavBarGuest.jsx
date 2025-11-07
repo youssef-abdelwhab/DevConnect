@@ -33,8 +33,8 @@ export default function NavBarGuest ({mode , setMode}){
                       >
                         {mode ? "☀️" : "🌙"}
                   </Button>
-                  <Button component={Link} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
-                  <Button component={Link} to="/login" color="text.primary"><LoginIcon/></Button>
+                  <Button component={Link} sx={{fontSize:"1rem" , "&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
+                  <Button component={Link} sx={{fontSize:"1rem","&:hover":{backgroundColor:"#0400002c"}}} to="/login" color="text.primary"><LoginIcon/></Button>
 
 
                 </Toolbar>

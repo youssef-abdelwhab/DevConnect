@@ -61,10 +61,8 @@ export default function NavBarLogge({mode , setMode}){
 
                     </Typography>
                 </Box>
-                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1rem", textDecoration: "none", color: "text.primary",flexGrow:1}}>
-
+                    <Typography  component={Link} to="/"  sx={{fontWeight:900,fontSize:"1rem", textDecoration:"none", color:"text.primary",flexGrow:1}}>
                         Dev Connect
-
                     </Typography>
 
                 <Button 
@@ -79,7 +77,7 @@ export default function NavBarLogge({mode , setMode}){
                     >
                       {mode ? "☀️" : "🌙"}
                 </Button>
-                        <Button color="text.primary" onClick={()=>{setOpen(true)}}>< LogoutIcon/></Button>
+                        <Button color="text.primary" sx={{fontSize:"1rem"}} onClick={()=>{setOpen(true)}}>< LogoutIcon/></Button>
                 </Toolbar>
             </Container>
       </AppBar>
