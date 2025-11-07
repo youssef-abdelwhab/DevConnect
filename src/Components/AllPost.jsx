@@ -69,7 +69,7 @@ export default function AllPost(){
       )}
     </Container>
     {token && 
-        <Fab color="secondary" component={Button} onClick={()=> setopenAddPost(true)} aria-label="add" sx={{position:"fixed" , bottom:70 , right:250}}>
+        <Fab color="primary" component={Button} onClick={()=> setopenAddPost(true)} aria-label="add" sx={{position:"fixed" , bottom:70 , right:250}}>
          <AddIcon />
         </Fab>
      }
