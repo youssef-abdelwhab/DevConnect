@@ -35,9 +35,9 @@ export default function NavBarGuest ({mode , setMode}){
                           }}
                       >
                         {mode === "light" ? (
-                            <BedtimeIcon sx={{ color: "white" ,fontSize:'1.2rem'}} />
+                            <BedtimeIcon sx={{ color: "white" ,fontSize:'1rem'}} />
                           ) : (
-                            <BrightnessHighIcon sx={{ color: "white" ,fontSize:'1.2rem'}} />
+                            <BrightnessHighIcon sx={{ color: "white" ,fontSize:'1rem'}} />
                         )}
                   </Button>
                   <Button component={Link} sx={{"&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon fontSize='1.2rem'/></Button>
