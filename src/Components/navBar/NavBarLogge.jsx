@@ -16,7 +16,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState  , useEffect} from 'react';
-import {showSnackBar} from "../../redux/slices/UiSlice"
+import {showSnackBar} from "../../redux/slices/UiSlice";
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
+
 
 
 export default function NavBarLogge({mode , setMode}){
@@ -43,7 +46,7 @@ export default function NavBarLogge({mode , setMode}){
           severity:"success",
       }))
 
-        }
+      }
 
       },[user ,dispatch])
 
@@ -73,9 +76,15 @@ export default function NavBarLogge({mode , setMode}){
                           "&:hover": {
                             backgroundColor: "rgba(0, 0, 0, 0.1)",
                           },
+                          fontSize:"1rem"
                         }}
                     >
-                      {mode ? "☀️" : "🌙"}
+
+                        {mode === "light" ? (
+                            <BedtimeIcon sx={{ color: "white" }} />
+                          ) : (
+                            <BrightnessHighIcon sx={{ color: "white" }} />
+                          )}
                 </Button>
                         <Button color="text.primary" sx={{fontSize:"1rem"}} onClick={()=>{setOpen(true)}}>< LogoutIcon/></Button>
                 </Toolbar>

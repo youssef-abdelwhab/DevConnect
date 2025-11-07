@@ -7,7 +7,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 import Container from '@mui/material/Container';
 import { Link } from "react-router-dom";
-
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 export default function NavBarGuest ({mode , setMode}){
   return(
@@ -31,7 +32,11 @@ export default function NavBarGuest ({mode , setMode}){
                             },
                           }}
                       >
-                        {mode ? "☀️" : "🌙"}
+                        {mode === "light" ? (
+                            <BedtimeIcon sx={{ color: "white" }} />
+                          ) : (
+                            <BrightnessHighIcon sx={{ color: "white" }} />
+                        )}
                   </Button>
                   <Button component={Link} sx={{fontSize:"1rem" , "&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
                   <Button component={Link} sx={{fontSize:"1rem","&:hover":{backgroundColor:"#0400002c"}}} to="/login" color="text.primary"><LoginIcon/></Button>
