@@ -12,16 +12,18 @@ import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 export default function NavBarGuest ({mode , setMode}){
   return(
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar position="static">
             <Container>
                 <Toolbar>
-                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1.2rem", textDecoration: "none", color: "text.primary"  ,flexGrow:1}}>
+                    <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1.2rem", textDecoration: "none", color: "text.primary" , flexGrow:1}}>
 
                         Dev Connect
 
                     </Typography>
 
+                
+                  <Box >
                   <Button 
                         onClick={() => setMode(prev => prev === "light" ? "dark" : "light")} 
                          sx={{
@@ -30,6 +32,7 @@ export default function NavBarGuest ({mode , setMode}){
                             "&:hover": {
                               backgroundColor: "rgba(0, 0, 0, 0.1)",
                             },
+                            fontSize:"0.7rem"
                           }}
                       >
                         {mode === "light" ? (
@@ -40,6 +43,9 @@ export default function NavBarGuest ({mode , setMode}){
                   </Button>
                   <Button component={Link} sx={{fontSize:"1rem" , "&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
                   <Button component={Link} sx={{fontSize:"1rem","&:hover":{backgroundColor:"#0400002c"}}} to="/login" color="text.primary"><LoginIcon/></Button>
+
+
+                  </Box>
 
 
                 </Toolbar>
