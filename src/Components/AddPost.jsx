@@ -44,17 +44,17 @@ export default function AddPost({Closs}){
                 top: 10,
                 right: 80,
                 textTransform: "none",
-                color:"text.primary",
+                color:"rgba(255, 255, 255, 1)",
                 borderRadius: 10,
-                backgroundColor: "rgba(0,0,0,0.6)",
-                "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
+                backgroundColor: "rgba(0,0,0,1)",
+                "&:hover": { backgroundColor: "rgba(0,0,0,1)" },
             }}
                 >
                 تغيير الصورة
                 </Button>
             </label>
         <label>
-            <Button size="small"variant="contained" onClick={()=>{setimgePost(null)}} sx={{ position:"absolute", color:"text.primary",top:10, right:10,zIndex:10 ,borderRadius: 10, backgroundColor: "rgba(0,0,0,0.6)", "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" }}}>
+            <Button size="small"variant="contained" onClick={()=>{setimgePost(null)}} sx={{ position:"absolute", color:"rgba(255, 255, 255, 1)",top:10, right:10,zIndex:10 ,borderRadius: 10, backgroundColor: "rgba(0,0,0,1)", "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" }}}>
                 <DeleteForeverIcon  />
             </Button>
         </label>

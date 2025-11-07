@@ -27,7 +27,7 @@ export const getDesignTokens = (mode) => ({
           },
         }),
   },
-  shape: { borderRadius: 10 },
+  shape: { borderRadius: 5 },
   typography: { fontFamily: 'Roboto, "Cairo", sans-serif' },
 });
 
