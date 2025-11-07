@@ -76,7 +76,7 @@ export default function Log_In(){
             <Stack m={1}>
  
 
-            <Card sx={{ display:"flex",flexDirection:"column" , gap:"20px"  , pt:1}}   >
+            <Stack sx={{ display:"flex",flexDirection:"column" , gap:"20px"  , pt:1}}   >
                 <TextField   id="outlined-basic" label="User Name" variant="outlined" onChange={(event)=>{
                     setformdata(priv =>({...priv , username : event.target.value}))
                 }
@@ -126,7 +126,7 @@ export default function Log_In(){
 
 
 
-              </Card>
+              </Stack>
 
                 <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, mt:2}}>
                     <Link to="/CreatAccount">

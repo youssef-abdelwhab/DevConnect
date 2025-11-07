@@ -13,7 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function CommentModel({Class , post}){
       const dispath = useDispatch();
       const {Comments , loading ,error} = useSelector((state) => state.Comments);
-
+      const {token} = useSelector((state)=> state.auth)
       useEffect (()=>{
         if(post.id){
           dispath(fetchComments(post.id))
@@ -76,10 +76,13 @@ export default function CommentModel({Class , post}){
           ))
         )}
       </Card>
+      {token && 
       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
-          <TextField fullWidth label="fullWidth" id="fullWidth"/>
+          <TextField fullWidth label="اضف تعليقك هنا" id="fullWidth"/>
           <SendIcon sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}/>
       </Stack>
+      }
+
 
     </Card>
 

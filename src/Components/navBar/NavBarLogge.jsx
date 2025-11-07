@@ -64,7 +64,7 @@ export default function NavBarLogge({mode , setMode}){
 
                     </Typography>
                 </Box>
-                    <Typography  component={Link} to="/"  sx={{fontWeight:900,fontSize:"0.7rem", textDecoration:"none", color:"text.primary",flexGrow:1}}>
+                    <Typography  component={Link} to="/"  sx={{fontWeight:900,fontSize:"1.3rem", textDecoration:"none", color:"text.primary",flexGrow:1}}>
                         Dev Connect
                     </Typography>
 
@@ -76,17 +76,16 @@ export default function NavBarLogge({mode , setMode}){
                           "&:hover": {
                             backgroundColor: "rgba(0, 0, 0, 0.1)",
                           },
-                          fontSize:"1rem"
                         }}
                     >
 
                         {mode === "light" ? (
-                            <BedtimeIcon sx={{ color: "white" }} />
+                            <BedtimeIcon sx={{ color: "white"  ,fontSize:"1.2rem"}} />
                           ) : (
-                            <BrightnessHighIcon sx={{ color: "white" }} />
+                            <BrightnessHighIcon sx={{ color: "white",fontSize:"1.2rem" }} />
                           )}
                 </Button>
-                        <Button color="text.primary" sx={{fontSize:"0.7rem"}} onClick={()=>{setOpen(true)}}>< LogoutIcon/></Button>
+                        <Button color="text.primary" sx={{"&:hover":{backgroundColor:"#0400002c"}}} onClick={()=>{setOpen(true)}}>< LogoutIcon sx={{fontSize:"1.2rem"}}/></Button>
                 </Toolbar>
             </Container>
       </AppBar>

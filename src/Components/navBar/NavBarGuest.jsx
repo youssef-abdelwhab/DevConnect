@@ -32,17 +32,16 @@ export default function NavBarGuest ({mode , setMode}){
                             "&:hover": {
                               backgroundColor: "rgba(0, 0, 0, 0.1)",
                             },
-                            fontSize:"0.7rem"
                           }}
                       >
                         {mode === "light" ? (
-                            <BedtimeIcon sx={{ color: "white" }} />
+                            <BedtimeIcon sx={{ color: "white" ,fontSize:'1.2rem'}} />
                           ) : (
-                            <BrightnessHighIcon sx={{ color: "white" }} />
+                            <BrightnessHighIcon sx={{ color: "white" ,fontSize:'1.2rem'}} />
                         )}
                   </Button>
-                  <Button component={Link} sx={{fontSize:"1rem" , "&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon/></Button>
-                  <Button component={Link} sx={{fontSize:"1rem","&:hover":{backgroundColor:"#0400002c"}}} to="/login" color="text.primary"><LoginIcon/></Button>
+                  <Button component={Link} sx={{"&:hover":{backgroundColor:"#0400002c"}}} to="CreatAccount" color="text.primary"><PersonAddIcon fontSize='1.2rem'/></Button>
+                  <Button component={Link} sx={{"&:hover":{backgroundColor:"#0400002c"}}} to="/login" color="text.primary"><LoginIcon fontSize='1.2rem'/></Button>
 
 
                   </Box>
