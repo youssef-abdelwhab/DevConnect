@@ -8,7 +8,7 @@ export default function NavBar({mode ,setMode}) {
 
   return (
     <>
-    {token ? <NavBarLogge mode={mode} setMode={setMode}/> : <NavBarGuest mode={mode} setMode={setMode}/>}
+        {token ? <NavBarLogge mode={mode} setMode={setMode}/> : <NavBarGuest mode={mode} setMode={setMode}/>}
     </>
   );
 }

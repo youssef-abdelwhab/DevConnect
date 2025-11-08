@@ -3,7 +3,14 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import { useState } from "react";
 import Dialog from '@mui/material/Dialog';
 import CommentModel from "./CommentModel";
-
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import { useSelector } from "react-redux";
 
 export default function Post({post}) {
   const [open , setOpen] = useState(false)
@@ -13,28 +20,38 @@ export default function Post({post}) {
     setOpenComment(X)
   }
 
+  //--------------------{delete icon}-------
+  const [OpenDelete,setOpenDelete]=useState(false)
+  const handelModelDelete = ()=>{
+    setOpenDelete(true)
+  }
+
+
+  const {user} =useSelector((state)=> state.auth)
+     console.log(post)
   return (
   <>
-    <Card sx={{  alignItems: "center", p: 2,  mt: 4,  borderRadius: 3, }}  >
-      <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
-        <Avatar  alt={post.author.username}  src={post.author.profile_image} />
-        <Typography variant="subtitle2" fontWeight={600} sx={{ fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" } }}>
-          {post.author.username}
-        </Typography>
+    <Card sx={{  alignItems: "center", p: 1.5,  mt: 4,  borderRadius: 2, }}  >
+      <Stack direction="row" alignItems="center" >
+        <Stack direction="row" alignItems="center" spacing={1} mb={1.5} sx={{flexGrow:1}}>
+            <Avatar  alt={post.author.username}  src={post.author.profile_image} />
+            <Typography variant="subtitle2" fontWeight={600} sx={{ fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" } }}>
+                {post.author.username}
+            </Typography>
+        </Stack>
+        {(post.author.id == user.id) && 
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <EditIcon sx={{"&:hover":{color:"blue"}  ,cursor:"pointer"}} />
+          <DeleteIcon sx={{"&:hover":{color:"red"}  ,cursor:"pointer"}} onClick={handelModelDelete}/>
+        </Stack>
+        }
       </Stack>
+
       {typeof post.image === "string" && post.image.trim() !== "" &&  (
         <>
         <Box component="img" src={post.image} sx={{objectFit: "cover",width: "100%", borderRadius: 2, mb: 0.4 , cursor:"pointer"}} onClick={()=>{setOpen(true)}} />
         <Dialog open={open}  onClose={() => setOpen(false)} maxWidth="lg">
-          <Box
-            component="img"
-            src={post.image}
-            sx={{
-              width: "100%",
-              height: "auto",
-              objectFit: "contain",
-            }}
-          />
+          <Box  component="img"  src={post.image}  sx={{ width: "100%", height:"auto",objectFit: "contain"}}/>
         </Dialog>
         </>
       )}
@@ -59,6 +76,28 @@ export default function Post({post}) {
            <CommentModel post={post} Class={Closs} ></CommentModel>  
         </Box>
       </Dialog>
+      <Dialog
+        open={OpenDelete}
+        onClose={()=> setOpenDelete(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete the post"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you deleted the post?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button  onClick={()=> setOpenDelete(false)}>Disagree</Button>
+          <Button sx={{color:"red"}}  autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   );
 }
