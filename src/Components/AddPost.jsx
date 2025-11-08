@@ -6,14 +6,48 @@ import { useState } from "react"
 import CloseIcon from '@mui/icons-material/Close';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useDispatch ,useSelector } from "react-redux"
+import {AddPostPust} from "../redux/slices/postsSlice"
+import SaveIcon from '@mui/icons-material/Save';
 
 export default function AddPost({Closs}){
-    const [imgePost , setimgePost] = useState(null)
+    const {token} =useSelector((state)=> state.auth)
+    const {loading} = useSelector((state) => state.posts )
+    const dispatch = useDispatch()
+
+    const [data , setdata] = useState({
+        title : "",
+        body:"",
+        image:"",
+    }) 
+
+
+
+    const [imgePost , setimgePost] = useState("")
     const handelImgePost = (event)=>{
         const file = event.target.files[0];
         setimgePost(URL.createObjectURL(file))
-
+        setdata( prev => ({...prev , image : file}))
     }
+     
+const handelPost =async ()=>{
+     const formData = new FormData()
+        formData.append("title" , data.title)
+        formData.append("body" , data.body)
+        if (data.image) {
+            formData.append("image", data.image)
+        }
+
+        const respons = await dispatch(AddPostPust({formData , token}))
+
+        if(AddPostPust.fulfilled.match(respons)){
+            Closs();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+}
 
     return (
         <Card  sx={{ display:"flex", flexDirection:"column", alignItems:"center" , gap:2,maxWidth:"900px",   mx:"auto" ,p:2 , width:"100%", m:0 }} >
@@ -67,8 +101,11 @@ export default function AddPost({Closs}){
                 </Button>
             </label>
             }
-
+            <TextField fullWidth label="عنوان البوست" onChange={(event)=>{
+                setdata(prve => ({...prve , title : event.target.value }))
+            }} id="fullWidth" />
             <TextField
+                onChange={(event)=>{setdata(prve => ({...prve , body : event.target.value}))}}
               autoFocus
                 label="اكتب منشورك هنا..."
                 variant="outlined"
@@ -80,10 +117,16 @@ export default function AddPost({Closs}){
             <input id="upload-image" type="file" style={{ display: "none" }}  onChange={handelImgePost}>
             </input>
 
+                    <Button
+                    variant="contained"
+                     fullWidth
+                    onClick={handelPost}  
+                    disabled={!data.title.trim() && !data.body.trim() || loading} 
+                    endIcon={loading && <SaveIcon />}
+                    >
+                    {loading ? "POSTING in..." : "POST"}
+                    </Button>
 
-            <Button variant="contained" fullWidth>
-                 Post
-            </Button>
 
 
         </Card>

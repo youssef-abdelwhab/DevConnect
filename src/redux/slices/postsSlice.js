@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { showSnackBar } from "./UiSlice";
+
 
 const API_URL = "https://tarmeezacademy.com/api/v1";
 
@@ -7,6 +9,34 @@ export const fetchPosts = createAsyncThunk("posts/fetchAll", async (page) => {
   const response = await axios.get(`${API_URL}/posts?limit=20&page=${page}`);
   return response.data.data;
 });
+export const AddPostPust= createAsyncThunk("AddPost/feth",async ({formData , token} , {dispatch ,rejectWithValue})=>{
+  try {
+    const response  = await axios.post(`${API_URL}/posts`,formData,{ headers: { "Content-Type": "multipart/form-data" ,"authorization": `Bearer ${token}`}})
+    dispatch(
+          showSnackBar({
+                snackbarMessage:"تم انشاء البوست بنجاح",
+                snackbarSeverity: "success",
+          })
+    )
+       console.log(response.data.data)
+       return response.data.data;
+     }
+      catch(error) {
+      dispatch(
+          showSnackBar({
+            snackbarMessage:`فشل انشاء البوست :${error}` ,
+            snackbarSeverity: "error",
+        })
+
+      )
+      return rejectWithValue(error.response?.data || error.message);
+
+
+     }
+
+
+
+})
 
 const postsSlice = createSlice({
   name: "posts",
@@ -24,17 +54,35 @@ const postsSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.posts = [...state.posts , ...action.payload]; 
-        state.page += 1;
-        if(action.payload.length < 20)(
-          state.hasMore = false
-        )
-      })
+          state.loading = false;
+          if(action.meta.arg === 1){
+            state.posts = action.payload;
+            state.page = 2;
+          } else {
+            const newPosts = action.payload.filter(
+              post => !state.posts.some(p => p.id === post.id)
+            );
+            state.posts = [...state.posts, ...newPosts];
+            state.page += 1;
+          }
+          state.hasMore = action.payload.length >= 20;
+        })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(AddPostPust.pending , (state)=>{
+        state.loading = true
+      })
+      .addCase(AddPostPust.fulfilled , (state , action)=>{
+        state.loading = false
+        state.posts.unshift(action.payload);
+      })
+      .addCase(AddPostPust.rejected , (state , action)=>{
+        state.loading = false,
+          state.error = action.payload;
+      }) 
+
   },
 });
 
