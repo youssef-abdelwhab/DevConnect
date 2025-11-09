@@ -10,7 +10,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
+import {DeletPost } from "../redux/slices/postsSlice"
+
 
 export default function Post({post}) {
   const [open , setOpen] = useState(false)
@@ -20,18 +22,28 @@ export default function Post({post}) {
     setOpenComment(X)
   }
 
+  const dispatch = useDispatch()
+
   //--------------------{delete icon}-------
   const [OpenDelete,setOpenDelete]=useState(false)
   const handelModelDelete = ()=>{
     setOpenDelete(true)
   }
 
+  const {user , token} =useSelector((state)=> state.auth)
 
-  const {user} =useSelector((state)=> state.auth)
-     console.log(post)
+  const IDPOST = post.id
+  const handelDeletePost = ()=>{
+      dispatch(DeletPost({IDPOST , token}))
+      setOpenDelete(false);
+  }
+
+
+
+
   return (
   <>
-    <Card sx={{  alignItems: "center", p: 1.5,  mt: 4,  borderRadius: 2, }}  >
+    <Card sx={{  alignItems: "center", p: 1.5,  mt: 4,  borderRadius: 2 }}  >
       <Stack direction="row" alignItems="center" >
         <Stack direction="row" alignItems="center" spacing={1} mb={1.5} sx={{flexGrow:1}}>
             <Avatar  alt={post.author.username}  src={post.author.profile_image} />
@@ -92,12 +104,11 @@ export default function Post({post}) {
         </DialogContent>
         <DialogActions>
           <Button  onClick={()=> setOpenDelete(false)}>Disagree</Button>
-          <Button sx={{color:"red"}}  autoFocus>
+          <Button sx={{color:"red"}} onClick={handelDeletePost} autoFocus>
             Agree
           </Button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 }
