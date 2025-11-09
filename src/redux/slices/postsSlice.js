@@ -53,6 +53,32 @@ export const DeletPost = createAsyncThunk("DeletePost/feth" ,async ({IDPOST , to
      }
 })
 
+export const EditPost = createAsyncThunk("EditPost/feth" , async ({IDPOST ,formData, token} , {dispatch ,rejectWithValue })=>{
+  try {
+    const response = await axios.put(`${API_URL}/posts/${IDPOST}`, formData,{ headers: { "Content-Type": "application/json" ,"authorization": `Bearer ${token}`}})
+    dispatch(
+        showSnackBar({
+              snackbarMessage:"تم  تعديل البوست بنجاح",
+              snackbarSeverity: "success",
+        })
+    )
+       return response.data.data;
+     }
+      catch(error) {
+      dispatch(
+          showSnackBar({
+            snackbarMessage:`فشل تعديل  البوست :${error}` ,
+            snackbarSeverity: "error",
+        })
+      )
+      return rejectWithValue(error.response?.data || error.message);
+     }
+})
+
+
+
+
+
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
@@ -107,6 +133,21 @@ const postsSlice = createSlice({
         );
       })
       .addCase(DeletPost.rejected , (state , action)=>{
+        state.loading = false
+        state.error = action.error.message;
+      })
+      .addCase(EditPost.pending , (state)=>{
+        state.loading = true
+      })
+      .addCase(EditPost.fulfilled, (state, action) => {
+          state.loading = false;
+          const updatedPost = action.payload; 
+          const index = state.posts.findIndex(post => post.id === updatedPost.id);
+          if (index !== -1) {
+              state.posts[index] = updatedPost; // استبدال البوست القديم بالجديد
+          }
+      })
+      .addCase(EditPost.rejected , (state , action)=>{
         state.loading = false
         state.error = action.error.message;
       })

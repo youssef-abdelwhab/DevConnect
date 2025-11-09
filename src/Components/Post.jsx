@@ -1,8 +1,6 @@
 import { Box, Avatar, Typography, Stack, Card } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { useState } from "react";
 import Dialog from '@mui/material/Dialog';
-import CommentModel from "./CommentModel";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,8 +8,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+
+import CommentModel from "./CommentModel";
 import { useSelector ,useDispatch} from "react-redux";
 import {DeletPost } from "../redux/slices/postsSlice"
+import { useState } from "react";
+import AddPost from "./AddPost";
 
 
 export default function Post({post}) {
@@ -37,10 +39,11 @@ export default function Post({post}) {
       dispatch(DeletPost({IDPOST , token}))
       setOpenDelete(false);
   }
-
-
-
-
+  // --------------{edite Post}--------------
+  const [openEditPost , setEditPost] = useState(false)
+const handelModelEdit =()=>{
+  setEditPost(true)
+}
   return (
   <>
     <Card sx={{  alignItems: "center", p: 1.5,  mt: 4,  borderRadius: 2 }}  >
@@ -53,7 +56,7 @@ export default function Post({post}) {
         </Stack>
         {(post.author.id == user.id) && 
         <Stack direction="row" alignItems="center" spacing={2}>
-          <EditIcon sx={{"&:hover":{color:"blue"}  ,cursor:"pointer"}} />
+          <EditIcon sx={{"&:hover":{color:"blue"}  ,cursor:"pointer"}} onClick={handelModelEdit} />
           <DeleteIcon sx={{"&:hover":{color:"red"}  ,cursor:"pointer"}} onClick={handelModelDelete}/>
         </Stack>
         }
@@ -109,6 +112,11 @@ export default function Post({post}) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog  sx={{ p:0}} maxWidth="md"  p={0} scroll="body" fullWidth open={openEditPost} onClose={()=> setEditPost(false)}>
+          <AddPost width={"100%"} Closs={()=>{setEditPost(false)}} post={post}></AddPost>
+      </Dialog>
+
+
     </>
   );
 }

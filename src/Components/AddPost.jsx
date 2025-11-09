@@ -9,45 +9,59 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch ,useSelector } from "react-redux"
 import {AddPostPust} from "../redux/slices/postsSlice"
 import SaveIcon from '@mui/icons-material/Save';
+import {EditPost} from "../redux/slices/postsSlice"
 
-export default function AddPost({Closs}){
+export default function AddPost({Closs , post}){
     const {token} =useSelector((state)=> state.auth)
     const {loading} = useSelector((state) => state.posts )
     const dispatch = useDispatch()
+    const isEditMode = Boolean(post);
 
     const [data , setdata] = useState({
-        title : "",
-        body:"",
-        image:"",
+        title : post?.title ||  "",
+        body:post?.body ||  "",
+        image:post?.image ||  "",
     }) 
 
+    const [imgePost , setimgePost] = useState(post?.image || "")
 
-
-    const [imgePost , setimgePost] = useState("")
     const handelImgePost = (event)=>{
         const file = event.target.files[0];
         setimgePost(URL.createObjectURL(file))
         setdata( prev => ({...prev , image : file}))
     }
-     
-const handelPost =async ()=>{
-     const formData = new FormData()
-        formData.append("title" , data.title)
-        formData.append("body" , data.body)
-        if (data.image) {
-            formData.append("image", data.image)
-        }
+    
+    const handelSudmit = async ()=>{
+         let response;
+         if(isEditMode){
+            response = await dispatch(EditPost({
+                IDPOST : post.id,
+                formData:{
+                    title : data.title ,
+                    body : data.body
+                },
+                token
+            }))
+         }else{
+            const formData = new FormData();
+                formData.append("title" , data.title)
+                formData.append("body" , data.body)
+                if(data.image) formData.append("image" , data.image)
 
-        const respons = await dispatch(AddPostPust({formData , token}))
+            response = await dispatch(AddPostPust({
+                formData,
+                token
 
-        if(AddPostPust.fulfilled.match(respons)){
+            }))
+         }
+
+        if (response.meta.requestStatus === "fulfilled") {
             Closs();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-}
+    }
+     
+
 
     return (
         <Card  sx={{ display:"flex", flexDirection:"column", alignItems:"center" , gap:2,maxWidth:"900px",   mx:"auto" ,p:2 , width:"100%", m:0 }} >
@@ -58,7 +72,8 @@ const handelPost =async ()=>{
             <Box sx={{ position: "relative", width: "100%" }}>
                 <Box
                 component="img"
-                src={imgePost}
+                
+                src={imgePost || data.image}
                 alt="post preview"
                 sx={{
                     width: "100%",
@@ -88,7 +103,7 @@ const handelPost =async ()=>{
                 </Button>
             </label>
         <label>
-            <Button size="small"variant="contained" onClick={()=>{setimgePost(null)}} sx={{ position:"absolute", color:"rgba(255, 255, 255, 1)",top:10, right:10,zIndex:10 ,borderRadius: 10, backgroundColor: "rgba(0,0,0,1)", "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" }}}>
+            <Button size="small"variant="contained" onClick={()=>{setimgePost(null); setdata(prev => ({...prev, image: null}))}} sx={{ position:"absolute", color:"rgba(255, 255, 255, 1)",top:10, right:10,zIndex:10 ,borderRadius: 10, backgroundColor: "rgba(0,0,0,1)", "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" }}}>
                 <DeleteForeverIcon  />
             </Button>
         </label>
@@ -101,7 +116,7 @@ const handelPost =async ()=>{
                 </Button>
             </label>
             }
-            <TextField fullWidth label="عنوان البوست" onChange={(event)=>{
+            <TextField fullWidth value={data.title} label="عنوان البوست" onChange={(event)=>{
                 setdata(prve => ({...prve , title : event.target.value }))
             }} id="fullWidth" />
             <TextField
@@ -110,6 +125,7 @@ const handelPost =async ()=>{
                 label="اكتب منشورك هنا..."
                 variant="outlined"
                 multiline
+                value={data.body}
                 fullWidth
                 minRows={3}   
                 maxRows={10}  
@@ -117,18 +133,18 @@ const handelPost =async ()=>{
             <input id="upload-image" type="file" style={{ display: "none" }}  onChange={handelImgePost}>
             </input>
 
-                    <Button
-                    variant="contained"
-                     fullWidth
-                    onClick={handelPost}  
-                    disabled={!data.title.trim() && !data.body.trim() || loading} 
-                    endIcon={loading && <SaveIcon />}
-                    >
-                    {loading ? "POSTING in..." : "POST"}
-                    </Button>
-
-
-
+            <Button
+                variant="contained"
+                fullWidth
+                onClick={handelSudmit}  
+                disabled={!data.title.trim() || !data.body.trim() || loading} 
+                endIcon={loading && <SaveIcon />}
+            >
+                {loading 
+                    ? (isEditMode ? "Saving..." : "Posting...") 
+                    : (isEditMode ? "Save Changes" : "Post")
+                }    
+            </Button>
         </Card>
     )
 }
