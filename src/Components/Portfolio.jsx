@@ -23,10 +23,10 @@ export default function Porfolio(){
     return(
         <>
           <Container sx={{mt:3 }} maxWidth="md" >
-            <Card sx={{p:2 ,display:"flex" ,flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"}}>
-                <Stack sx={{flexDirection:"row" , alignItems:"center" , gap:2}}>
+            <Card sx={{p:2 ,display:"flex" ,flexDirection:"row",flexWrap:"wrap" , justifyContent:"space-between" , alignItems:"center"}}>
+                <Stack sx={{flexDirection:"row" , alignItems:"center" , gap:3,mb:2}}>
                     {/* <Box component={"img"} sx={{width:"100px" , height:"100px"}} borderRadius={"50%"} src={user.profile_image || "../src/assets/profaileimg.jpg"}></Box> */}
-                    <Avatar alt={user.name} src={user.profile_image} sx={{ width: 56, height: 56 }}/>
+                    <Avatar alt={user.name} src={user.profile_image} sx={{ width: 100, height: 100 }}/>
                     <Stack sx={{gap:1}}>
                         <Typography>{user.name}</Typography>
                         <Typography>{user.username}</Typography>
