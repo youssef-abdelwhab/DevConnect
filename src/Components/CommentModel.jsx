@@ -1,24 +1,43 @@
-import { Box, Avatar, Typography, Stack, Card } from "@mui/material";
+import { Box, Avatar, Typography, Stack, Card, Button } from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { useEffect  } from "react";
+import { useEffect , useState  } from "react";
 import CommentItem from "./CommentItem";
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch , useSelector } from "react-redux";
 import {fetchComments} from "../redux/slices/CommentSlice";
+import {AddComments} from "../redux/slices/CommentSlice"
+import {fetchPostById} from "../redux/slices/postsSlice"
 import CircularProgress from '@mui/material/CircularProgress';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 
 export default function CommentModel({Class , post}){
       const dispath = useDispatch();
       const {Comments , loading ,error} = useSelector((state) => state.Comments);
       const {token} = useSelector((state)=> state.auth)
+
       useEffect (()=>{
         if(post.id){
           dispath(fetchComments(post.id))
         }
-      },[dispath, post.id])
+      },[dispath, post.id ])
+
+      //---------------------{add comments}-------------------
+      const [comment , setcomment] = useState(null)
+      const handelAddComments = async ()=>{
+       const result = await dispath(AddComments({
+        comment:{body: comment},
+        IDPOST:post.id,
+        token
+      }))
+      if (result.meta.requestStatus === "fulfilled") {
+        setcomment(""); 
+        dispath(fetchPostById(post.id))
+      }
+      }
+
 
 
     return(
@@ -78,8 +97,12 @@ export default function CommentModel({Class , post}){
       </Card>
       {token && 
       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
-          <TextField fullWidth label="اضف تعليقك هنا" id="fullWidth"/>
-          <SendIcon sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}/>
+          <TextField onChange={(event)=>{
+            setcomment(event.target.value)
+          }}
+           fullWidth value={comment} label="اضف تعليقك هنا" id="fullWidth"/>
+           {loading ?<HourglassBottomIcon display={loading}/> : <SendIcon onClick={handelAddComments} sx={{fontSize:"40px" ,color:"#0d47a1" , cursor:"pointer"}}/> }
+
       </Stack>
       }
 

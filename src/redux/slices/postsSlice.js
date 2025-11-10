@@ -31,6 +31,14 @@ export const AddPostPust= createAsyncThunk("AddPost/feth",async ({formData , tok
       return rejectWithValue(error.response?.data || error.message);
      }
 })
+export const fetchPostById = createAsyncThunk(
+  "posts/fetchById",
+  async (postId) => {
+    const response = await axios.get(`${API_URL}/posts/${postId}`);
+    return response.data.data;
+  }
+);
+
 export const DeletPost = createAsyncThunk("DeletePost/feth" ,async ({IDPOST , token} , {dispatch , rejectWithValue}) =>{
   try {
      const response = await axios.delete(`${API_URL}/posts/${IDPOST}`,{ headers: { "Content-Type": "multipart/form-data" ,"authorization": `Bearer ${token}`}})
@@ -151,6 +159,14 @@ const postsSlice = createSlice({
         state.loading = false
         state.error = action.error.message;
       })
+      .addCase(fetchPostById.fulfilled, (state, action) => {
+    const updatedPost = action.payload;
+    const index = state.posts.findIndex(post => post.id === updatedPost.id);
+    if (index !== -1) {
+        state.posts[index] = updatedPost;
+    }
+})
+
 
   },
 });
