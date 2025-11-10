@@ -17,9 +17,7 @@ export default function NavBarGuest ({mode , setMode}){
             <Container>
                 <Toolbar>
                     <Typography  component={Link} to="/"  sx={{ fontWeight:900,fontSize:"1.2rem", textDecoration: "none", color: "text.primary" , flexGrow:1}}>
-
                         Dev Connect
-
                     </Typography>
 
                 

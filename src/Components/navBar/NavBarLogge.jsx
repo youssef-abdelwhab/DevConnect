@@ -56,12 +56,10 @@ export default function NavBarLogge({mode , setMode}){
       <AppBar position="static">
             <Container>
                 <Toolbar>
-                <Box sx={{display:"flex" , flexDirection:"row" , gap:1, flexGrow:1 ,alignItems:"center"}}>
+                <Box component={Link} to={`/Portfolio/${user.id}`}  sx={{display:"flex" , flexDirection:"row" , gap:1, flexGrow:1 ,alignItems:"center" , textDecoration: "none", color: "text.primary" }}>
                   <Avatar alt={user.profile_image}  src={user.profile_image}/>
-                    <Typography  component={Link} to="/"  sx={{ fontSize:"1rem" , fontWeight:"400", textDecoration: "none", color: "text.primary" ,flexGrow:1}}>
-
+                    <Typography  sx={{ fontSize:"1.2rem" , fontWeight:"600", textDecoration: "none", color: "text.primary" ,flexGrow:1}}>
                         {user.name}
-
                     </Typography>
                 </Box>
                     <Typography  component={Link} to="/"  sx={{fontWeight:900,fontSize:"1rem", textDecoration:"none", width:"100%",textAlign:"center",color:"text.primary",flexGrow:1}}>

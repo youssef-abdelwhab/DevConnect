@@ -5,14 +5,15 @@ import Log_In from "./Log_In"
 import CreatAccount from "./CreatAccount";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Snackbars from "./SnackBar"
+import Portfolio from "./Portfolio";
 function App( {mode , setMode}) {
-
   return (
     <>
     <BrowserRouter>
       <NavBar mode={mode} setMode={setMode}/>
       <Snackbars></Snackbars>
       <Routes>
+        <Route path="/Portfolio/:id" element={<Portfolio/>}/>
         <Route path="/CreatAccount" element={<CreatAccount/>}/>
         <Route path="/" element={<AllPost />} />
         <Route path="/login" element={<Log_In />} />

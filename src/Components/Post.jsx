@@ -9,11 +9,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-import CommentModel from "./CommentModel";
+import CommentModel from "../Components/comments/CommentModel";
 import { useSelector ,useDispatch} from "react-redux";
 import {DeletPost } from "../redux/slices/postsSlice"
 import { useState } from "react";
 import AddPost from "./AddPost";
+import { Link } from "react-router-dom";
 
 
 export default function Post({post}) {
@@ -48,7 +49,7 @@ const handelModelEdit =()=>{
   <>
     <Card sx={{  alignItems: "center", p: 1.5,  mt: 4,  borderRadius: 2 }}  >
       <Stack direction="row" alignItems="center" >
-        <Stack direction="row" alignItems="center" spacing={1} mb={1.5} sx={{flexGrow:1}}>
+        <Stack component={Link} to={`/Portfolio/${post.author.id }`} direction="row" alignItems="center" spacing={1} mb={1.5} sx={{flexGrow:1 ,textDecoration: "none", color: "text.primary" }}>
             <Avatar  alt={post.author.username}  src={post.author.profile_image} />
             <Typography variant="subtitle2" fontWeight={600} sx={{ fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" } }}>
                 {post.author.username}

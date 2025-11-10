@@ -6,9 +6,9 @@ import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch , useSelector } from "react-redux";
-import {fetchComments} from "../redux/slices/CommentSlice";
-import {AddComments} from "../redux/slices/CommentSlice"
-import {fetchPostById} from "../redux/slices/postsSlice"
+import {fetchComments} from "../../redux/slices/CommentSlice";
+import {AddComments} from "../../redux/slices/CommentSlice"
+import {fetchPostById} from "../../redux/slices/postsSlice"
 import CircularProgress from '@mui/material/CircularProgress';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 

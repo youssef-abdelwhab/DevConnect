@@ -3,6 +3,7 @@ import postsReducer from "./slices/postsSlice";
 import CommentsReducer from "./slices/CommentSlice"
 import authReducer from "./slices/authSlice"
 import UiSnacBarReducer from "./slices/UiSlice"
+import PortfiloReducer from "./slices/Portfilo"
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     Comments : CommentsReducer,
     auth: authReducer,
     snackBar :UiSnacBarReducer,
+    Portfilo :PortfiloReducer,
   },
 });
 
