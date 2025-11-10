@@ -73,7 +73,7 @@ export default function CommentModel({Class , post}){
         <Typography variant="subtitle1" color="text.secondary"> {post.comments_count} Comment</Typography>
       </Stack>
 
-      <Card sx={{ maxHeight:"500px", minHeight:"fit-content",overflow:"scroll"}}>
+      <Stack sx={{background:"background.default",  maxHeight:"500px", minHeight:"fit-content",overflow:"scroll"}}>
         {loading &&(
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                 <CircularProgress />
@@ -94,7 +94,7 @@ export default function CommentModel({Class , post}){
             <CommentItem key={comment.id} comment={comment} />
           ))
         )}
-      </Card>
+      </Stack>
       {token && 
       <Stack sx={{flexDirection:"row" , display:"flex" ,alignItems:"center", mt:2,gap:3 , border:"none" ,boxShadow:"none", paddingBlock:0.5}} >
           <TextField onChange={(event)=>{
