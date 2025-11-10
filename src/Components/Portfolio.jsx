@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import { Card , Box ,Typography , Stack } from '@mui/material';
+import { Card , Box ,Typography ,Avatar, Stack } from '@mui/material';
 import Post from './Post';
 import { useDispatch ,useSelector } from 'react-redux';
 import {FetchPortfilo, FetchPortfiloPost} from "../redux/slices/Portfilo"
@@ -25,13 +25,14 @@ export default function Porfolio(){
           <Container sx={{mt:3 }} maxWidth="md" >
             <Card sx={{p:2 ,display:"flex" ,flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"}}>
                 <Stack sx={{flexDirection:"row" , alignItems:"center" , gap:2}}>
-                    <Box component={"img"} sx={{width:"100px" , height:"100px"}} borderRadius={"50%"} src={user.profile_image || "../src/assets/profaileimg.jpg"}></Box>
-                    <Stack sx={{gap:2}}>
+                    {/* <Box component={"img"} sx={{width:"100px" , height:"100px"}} borderRadius={"50%"} src={user.profile_image || "../src/assets/profaileimg.jpg"}></Box> */}
+                    <Avatar alt={user.name} src={user.profile_image} sx={{ width: 56, height: 56 }}/>
+                    <Stack sx={{gap:1}}>
                         <Typography>{user.name}</Typography>
                         <Typography>{user.username}</Typography>
                     </Stack>
                 </Stack>
-                <Stack  sx={{gap:2 , mr:6}}>
+                <Stack  sx={{gap:1 , mr:4}}>
                     <Typography>Posts : {user.posts_count}</Typography>
                     <Typography>Comments : {user.comments_count}</Typography>
                 </Stack>
