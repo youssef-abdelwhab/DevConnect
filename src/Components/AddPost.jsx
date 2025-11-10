@@ -42,6 +42,7 @@ export default function AddPost({Closs , post}){
                 },
                 token
             }))
+
          }else{
             const formData = new FormData();
                 formData.append("title" , data.title)
@@ -53,11 +54,12 @@ export default function AddPost({Closs , post}){
                 token
 
             }))
+            window.scrollTo({ top: 0, behavior: 'smooth' });
          }
 
         if (response.meta.requestStatus === "fulfilled") {
             Closs();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
         }
     }
      
@@ -68,7 +70,7 @@ export default function AddPost({Closs , post}){
         <Box onClick={Closs}  sx={{display:"flex", alignSelf: "flex-end" }}>
             <CloseIcon  onClick={Closs} sx={{fontSize:"2rem" , cursor:"pointer" }}  ></CloseIcon>
         </Box>
-        {imgePost && (
+        {imgePost && !isEditMode &&  (
             <Box sx={{ position: "relative", width: "100%" }}>
                 <Box
                 component="img"
