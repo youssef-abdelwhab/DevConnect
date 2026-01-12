@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    /* الأساس */
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
+
+    /* أقصى صرامة */
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    // "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+
+    /* زيادة الألم 😈 */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    // "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* جودة */
+    "forceConsistentCasingInFileNames": true,
+
+
+    "skipLibCheck": true,
+
+
+    /* ممنوع الكسل */
+    "allowJs": false,
+    "checkJs": false,
+    "noEmit": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
+

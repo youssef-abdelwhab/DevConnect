@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
-
-export const getDesignTokens = (mode) => ({
+type ThemeMode = "light" | "dark";
+export const getDesignTokens = (mode:ThemeMode) => ({
   palette: {
     mode,
     ...(mode === "light"
@@ -19,7 +19,7 @@ export const getDesignTokens = (mode) => ({
           background: {
             default: "#121212",
             paper: "#1e1e1e",
-            comment:"#5c5a5aff"
+            comment: "#5c5a5aff",
           },
           primary: { main: "#42a5f5" },
           text: {
@@ -32,4 +32,4 @@ export const getDesignTokens = (mode) => ({
   typography: { fontFamily: 'Roboto, "Cairo", sans-serif' },
 });
 
-export const createAppTheme = (mode) => createTheme(getDesignTokens(mode));
+export const createAppTheme = (mode:ThemeMode) => createTheme(getDesignTokens(mode));

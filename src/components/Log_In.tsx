@@ -16,8 +16,9 @@ import SaveIcon from '@mui/icons-material/Save';
 // hocks react
 import { useState , useEffect } from 'react';
 // rudxe 
-import { useDispatch , useSelector} from 'react-redux';
-import {loginUser} from "../../src/redux/slices/authSlice"
+
+import {useAppSelector ,useAppDispatch} from "../redux/store"
+import {loginUser} from "../redux/slices/authSlice"
 
 // llink
 import { useNavigate } from "react-router-dom";
@@ -27,8 +28,8 @@ import  {Link}  from 'react-router-dom';
 
 export default function Log_In(){
     const navigate = useNavigate()
-    const {loading  ,token} = useSelector( state => state.auth)
-    const dispatch = useDispatch()
+    const {loading  ,token} = useAppSelector( state => state.auth)
+    const dispatch = useAppDispatch()
     const [ check , setcheck] = useState(false)
 
 
@@ -49,10 +50,10 @@ export default function Log_In(){
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-    const handleMouseDownPassword = (event) => {
+    const handleMouseDownPassword = (event:any) => {
         event.preventDefault();
     };
-    const handleMouseUpPassword = (event) => {
+    const handleMouseUpPassword = (event:any) => {
         event.preventDefault();
     };
 
