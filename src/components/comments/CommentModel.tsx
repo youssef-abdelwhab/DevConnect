@@ -12,20 +12,7 @@ import { fetchPostById } from "../../redux/slices/postsSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import { useAppSelector, useAppDispatch } from "../../redux/store";
-
-interface Post {
-  id: number;
-  title: string;
-  comments_count: number;
-  created_at: string;
-  body: string;
-  image: string;
-  author: author;
-}
-interface author {
-  username: string;
-  profile_image: string;
-}
+import { Post } from "../../types/posts";
 
 interface CommentModelProps {
   post: Post;

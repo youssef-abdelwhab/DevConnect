@@ -1,34 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { showSnackBar } from "./UiSlice";
-
+import { User, ShowPost, UserId } from "../../types/Portfolio";
 const API_URL = "https://tarmeezacademy.com/api/v1";
-
-interface User {
-  name: string;
-  username: string;
-  profile_image: string;
-  posts_count: number;
-  comments_count: number;
-}
-
-interface ShowPost {
-  title: string;
-  body: string;
-  image: string;
-  created_at: string;
-  comments_count: number;
-  id: number;
-  author: Author;
-}
-interface Author {
-  id: number;
-  username: string;
-  profile_image: string;
-}
-interface UserId {
-  id: number;
-}
 
 export const FetchPortfilo = createAsyncThunk<User, UserId>(
   "Portfilo/fetch",

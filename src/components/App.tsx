@@ -5,15 +5,10 @@ import CreatAccount from "./CreatAccount";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Snackbars from "./SnackBar";
 import Portfolio from "./Portfolio";
-import { FC ,SetStateAction  } from "react";
+import { FC } from "react";
+import { ThemeModeType } from "../types/ThemeMode";
 
-type ThemeMode = "light" | "dark";
-interface ThemeModeType{
-  mode:ThemeMode,
-  setMode:React.Dispatch<SetStateAction<ThemeMode>>,
-}
-
-const App:FC<ThemeModeType> = ({mode, setMode}) => {
+const App: FC<ThemeModeType> = ({ mode, setMode }) => {
   return (
     <>
       <BrowserRouter>
@@ -28,6 +23,6 @@ const App:FC<ThemeModeType> = ({mode, setMode}) => {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

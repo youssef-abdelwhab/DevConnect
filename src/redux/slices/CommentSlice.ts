@@ -1,21 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { showSnackBar } from "./UiSlice";
 import axios from "axios";
+import {FetchCommentsArg , AddComment} from "../../types/Comments"
 const API_URL = "https://tarmeezacademy.com/api/v1";
 
-interface FetchCommentsArg {
-  body: string;
-  id: number;
-  author: {
-    profile_image: string;
-    name: string;
-  };
-}
-interface AddComment {
-  id: number;
-  body: string;
-  token: string;
-}
+
 
 export const fetchComments = createAsyncThunk<FetchCommentsArg[], number>(
   "comments/fetch",

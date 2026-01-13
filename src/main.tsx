@@ -8,11 +8,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createAppTheme } from "./Theme.js";
 
-type ThemeMode = "light" | "dark";
+import { ThemeMode } from "./types/ThemeMode";
 
 const getInitialMode = (): ThemeMode => {
-      const saved = localStorage.getItem("mode") || "dark";
-      return saved === "light" || saved === "dark" ? saved :"dark"
+  const saved = localStorage.getItem("mode") || "dark";
+  return saved === "light" || saved === "dark" ? saved : "dark";
 };
 export function Main() {
   const [mode, setMode] = useState<ThemeMode>(getInitialMode);

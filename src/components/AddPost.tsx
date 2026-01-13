@@ -10,31 +10,12 @@ import { AddPostPust } from "../redux/slices/postsSlice";
 import SaveIcon from "@mui/icons-material/Save";
 import { EditPost } from "../redux/slices/postsSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
+import {Post , PostForm} from "../types/posts"
 
-interface PostForm {
-  title: string;
-  body: string;
-  image: File | null;
-}
-
-interface Post {
-  id: number;
-  title: string;
-  comments_count: number;
-  created_at: string;
-  body: string;
-  image: string;
-  author: Author;
-}
-interface Author {
-  id: number;
-  username: string;
-  profile_image: string;
-}
 
 interface AddPost {
   onCloss: () => void;
-  post?: Post ;
+  post?: Post;
 }
 
 const AddPost: FC<AddPost> = ({ onCloss, post }) => {

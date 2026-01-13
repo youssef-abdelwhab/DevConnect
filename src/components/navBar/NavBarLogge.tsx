@@ -15,17 +15,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState, useEffect, SetStateAction, FC } from "react";
+import { useState, useEffect, FC } from "react";
 import { showSnackBar } from "../../redux/slices/UiSlice";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import BrightnessHighIcon from "@mui/icons-material/BrightnessHigh";
-type ThemeMode = "light" | "dark";
-interface ThemeModeType {
-  mode: ThemeMode;
-  setMode: React.Dispatch<SetStateAction<ThemeMode>>;
-
-}
-
+import { ThemeModeType } from "../../types/ThemeMode";
 
 const NavBarLogge: FC<ThemeModeType> = ({ mode, setMode }) => {
   const { user } = useAppSelector((state) => state.auth);
@@ -53,7 +47,7 @@ const NavBarLogge: FC<ThemeModeType> = ({ mode, setMode }) => {
       );
     }
   }, [user, dispatch]);
-  if(!user) return
+  if (!user) return;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -120,8 +114,10 @@ const NavBarLogge: FC<ThemeModeType> = ({ mode, setMode }) => {
               )}
             </Button>
             <Button
-              
-              sx={{ "&:hover": { backgroundColor: "#0400002c" } ,color:"text.primary" }}
+              sx={{
+                "&:hover": { backgroundColor: "#0400002c" },
+                color: "text.primary",
+              }}
               onClick={() => {
                 setOpen(true);
               }}

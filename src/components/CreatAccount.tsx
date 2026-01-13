@@ -26,15 +26,15 @@ export default function CreatAccount() {
   const { token, loading } = useAppSelector((state) => state.auth);
 
   // ----------------{show passwrd}----------------
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event:any) => {
+  const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
-  const handleMouseUpPassword = (event:any) => {
+  const handleMouseUpPassword = (event: any) => {
     event.preventDefault();
   };
 
@@ -43,7 +43,7 @@ export default function CreatAccount() {
     "../src/assets/default-avatar-icon-of-social-media-user-vector.jpg"
   );
 
-  const handleFileChange = (event:any) => {
+  const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));

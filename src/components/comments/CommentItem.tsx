@@ -1,14 +1,7 @@
 import { Avatar, Card, Stack, Typography } from "@mui/material";
 import { FC } from "react";
+import {FetchCommentsArg} from "../../types/Comments"
 
-interface FetchCommentsArg {
-  body: string;
-  id: number;
-  author: {
-    profile_image: string;
-    name: string;
-  };
-}
 interface CommentItemProps {
   comment: FetchCommentsArg;
 }

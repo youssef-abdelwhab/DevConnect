@@ -14,31 +14,10 @@ import { DeletPost } from "../redux/slices/postsSlice";
 import { useState, FC } from "react";
 import AddPost from "./AddPost";
 import { Link } from "react-router-dom";
-// interface PostTypeAng {
-//   id: number;
-//   title: string;
-//   comments_count: number;
-//   created_at: string;
-//   body: string;
-//   image: string;
-//   author: Author;
-// }
-interface ShowPost {
-  title: string;
-  body: string;
-  image: string;
-  created_at: string;
-  comments_count: number;
-  id: number;
-  author: Author;
-}
-interface Author {
-  id: number;
-  username: string;
-  profile_image: string;
-}
+import { Post } from "../types/posts";
+
 interface PostType {
-  post: ShowPost;
+  post: Post;
 }
 
 const Post: FC<PostType> = ({ post }) => {

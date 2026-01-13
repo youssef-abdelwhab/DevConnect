@@ -1,48 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { showSnackBar } from "./UiSlice";
+import {Post ,AddPostArg,DeletePostarg,EditPostarg,PostStite} from "../../types/posts"
 
 const API_URL: string = "https://tarmeezacademy.com/api/v1";
 
-interface Post {
-  id: number;
-  title: string;
-  comments_count: number;
-  created_at: string;
-  body: string;
-  image: string;
-  author: Author;
-}
-interface Author {
-  id: number;
-  username: string;
-  profile_image: string;
-}
-interface PostStite {
-  page: number;
-  posts: Post[];
-  hasMore: boolean;
-  loading: boolean;
-  error?: string;
-}
 
-interface AddPostArg {
-  formData: FormData;
-  token: string;
-}
-interface EditPostarg {
-  IDPOST: number;
-  token: string;
-  formData: {
-    title: string;
-    body: string;
-  };
-}
-
-interface DeletePostarg {
-  IDPOST: number;
-  token: string;
-}
 
 export const fetchPosts = createAsyncThunk<Post[], number>(
   "posts/fetchAll",

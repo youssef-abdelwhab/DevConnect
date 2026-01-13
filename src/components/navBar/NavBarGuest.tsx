@@ -9,12 +9,9 @@ import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import BrightnessHighIcon from "@mui/icons-material/BrightnessHigh";
-import { FC, SetStateAction } from "react";
-type ThemeMode = "light" | "dark";
-interface ThemeModeType {
-  mode: ThemeMode;
-  setMode: React.Dispatch<SetStateAction<ThemeMode>>;
-}
+import { FC } from "react";
+import { ThemeModeType } from "../../types/ThemeMode";
+
 const NavBarGuest: FC<ThemeModeType> = ({ mode, setMode }) => {
   return (
     <Box>

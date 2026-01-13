@@ -2,25 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 const API_URL = "https://tarmeezacademy.com/api/v1";
 import { showSnackBar } from "./UiSlice";
-import type { RootState } from "../store";
+import  { RootState } from "../store";
+import {Register,UserArg,User} from "../../types/Auth"
 
-interface Register {
-  formdata: FormData;
-  rememberMe: boolean;
-}
-interface UserArg {
-  user: User;
-  token: string;
-}
-interface User {
-  username: string;
-  name: string;
-  email: string;
-  id: number;
-  profile_image: string;
-  comments_count: number;
-  posts_count: number;
-}
 
 //--------------------------------{Api register}-------------------------------
 export const registerUser = createAsyncThunk<UserArg, Register>(

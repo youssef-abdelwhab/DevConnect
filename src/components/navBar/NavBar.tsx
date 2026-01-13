@@ -1,16 +1,15 @@
 import NavBarGuest from "./NavBarGuest";
 import NavBarLogge from "./NavBarLogge";
 import { useAppSelector } from "../../redux/store";
-import { FC,SetStateAction } from "react";
+import { FC, SetStateAction } from "react";
 
 type ThemeMode = "light" | "dark";
-interface ThemeModeType{
-  mode:ThemeMode,
-  setMode:React.Dispatch<SetStateAction<ThemeMode>>,
+interface ThemeModeType {
+  mode: ThemeMode;
+  setMode: React.Dispatch<SetStateAction<ThemeMode>>;
 }
 
-
-const NavBar:FC <ThemeModeType>= ({ mode, setMode }) =>{
+const NavBar: FC<ThemeModeType> = ({ mode, setMode }) => {
   const { token } = useAppSelector((state) => state.auth);
 
   return (
@@ -22,5 +21,5 @@ const NavBar:FC <ThemeModeType>= ({ mode, setMode }) =>{
       )}
     </>
   );
-}
-export default NavBar
+};
+export default NavBar;
